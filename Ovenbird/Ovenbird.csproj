@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <Version>1.0</Version>
+    <Title>Coenobita</Title>
+    <Description>Description of Coenobita</Description>
+    <TargetExt>.gha</TargetExt>
+  </PropertyGroup>
+	
+  <ItemGroup>
+    <None Remove="Resources\Align.png" />
+    <None Remove="Resources\box_closed.png" />
+    <None Remove="Resources\box_open.png" />
+    <None Remove="Resources\Clip.png" />
+    <None Remove="Resources\Cluster.png" />
+    <None Remove="Resources\Coenobita.png" />
+    <None Remove="Resources\ExportXML.png" />
+    <None Remove="Resources\Hull.png" />
+    <None Remove="Resources\Region.png" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Align.png" />
+    <EmbeddedResource Include="Resources\box_closed.png" />
+    <EmbeddedResource Include="Resources\box_open.png" />
+    <EmbeddedResource Include="Resources\Clip.png" />
+    <EmbeddedResource Include="Resources\Cluster.png" />
+    <EmbeddedResource Include="Resources\Coenobita.png" />
+    <EmbeddedResource Include="Resources\ExportXML.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Hull.png" />
+    <EmbeddedResource Include="Resources\Region.png" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Grasshopper" Version="7.15.22039.13001" />
+  </ItemGroup>
+  
+  <PropertyGroup Condition="$(Configuration) == 'Debug' AND $([MSBuild]::IsOSPlatform(Windows))">
+    <StartProgram>C:\Program Files\Rhino 7\System\Rhino.exe</StartProgram>
+    <StartArguments></StartArguments>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+  
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="Move /Y &quot;$(ProjectDir)$(OutputPath)*.gha&quot; &quot;$(AppData)\Grasshopper\Libraries\$(ProjectName).gha&quot;" />
+  </Target>
+
+</Project>

@@ -1,0 +1,11 @@
+D:\ovenbird\Ovenbird\bin\Debug\net48\Ovenbird.gha
+D:\ovenbird\Ovenbird\bin\Debug\net48\Ovenbird.pdb
+D:\ovenbird\Ovenbird\obj\Debug\net48\Ovenbird.csproj.AssemblyReference.cache
+D:\ovenbird\Ovenbird\obj\Debug\net48\Ovenbird.Properties.Resources.resources
+D:\ovenbird\Ovenbird\obj\Debug\net48\Ovenbird.csproj.GenerateResource.cache
+D:\ovenbird\Ovenbird\obj\Debug\net48\Ovenbird.GeneratedMSBuildEditorConfig.editorconfig
+D:\ovenbird\Ovenbird\obj\Debug\net48\Ovenbird.AssemblyInfoInputs.cache
+D:\ovenbird\Ovenbird\obj\Debug\net48\Ovenbird.AssemblyInfo.cs
+D:\ovenbird\Ovenbird\obj\Debug\net48\Ovenbird.csproj.CoreCompileInputs.cache
+D:\ovenbird\Ovenbird\obj\Debug\net48\Ovenbird.gha
+D:\ovenbird\Ovenbird\obj\Debug\net48\Ovenbird.pdb
