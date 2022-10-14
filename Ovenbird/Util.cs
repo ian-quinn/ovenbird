@@ -52,6 +52,32 @@ namespace Ovenbird
             }
             return msg;
         }
+
+        public static string DoubleListToString(List<double> nums)
+        {
+            string msg = "";
+            for (int i = 0; i < nums.Count; i++)
+            {
+                msg += $"{nums[i]}";
+                if (i < nums.Count - 1)
+                    msg += ", ";
+            }
+            return msg;
+        }
+
+        public static string StringListToString(List<string> labels)
+        {
+            string msg = "";
+            for (int i = 0; i < labels.Count; i++)
+            {
+                msg += $"{labels[i]}";
+                if (i < labels.Count - 1)
+                    msg += ", ";
+            }
+            return msg;
+        }
+
+
         // convert nested lists to datatree for output
         public static DataTree<T> ListToTree<T>(List<List<T>> list)
         {

@@ -10,6 +10,7 @@ using Rhino.Geometry;
 
 namespace Ovenbird
 {
+    /*
     public class ModuleZipXML : GH_Component
     {
         /// <summary>
@@ -169,4 +170,5 @@ namespace Ovenbird
         /// </summary>
         public override Guid ComponentGuid => new Guid("1CB4BBF6-BC89-4C28-A30B-3662ADEB80B1");
     }
+    */
 }

@@ -78,7 +78,7 @@ namespace Ovenbird
             List<List<string>> nestedMatch;
             List<List<gbSeg>> nestedOrphans;
 
-            SpaceDetection.GetBoundary(segs, levelId, out nestedSpace, out nestedShell, out nestedMatch, out nestedOrphans);
+            SpaceDetection.GetBoundary(segs, out nestedSpace, out nestedShell, out nestedMatch, out nestedOrphans);
 
             List<List<Point3d>> _nestedSpace = new List<List<Point3d>>();
             foreach (List<gbXYZ> pts in nestedSpace)

@@ -19,7 +19,7 @@ namespace Ovenbird
         // nested lists of points representing boundaries of each floor slab (there may be multiple isolated slabs)
         // nested lists of strings representing the surface matching relationships.
         // the surface matching across different levels will not be covered here
-        public static void GetBoundary(List<gbSeg> lines, int levelId, out List<List<gbXYZ>> loops, 
+        public static void GetBoundary(List<gbSeg> lines, out List<List<gbXYZ>> loops, 
             out List<gbXYZ> shell, out List<List<string>> match, out List<List<gbSeg>> orphans)
         {
 
@@ -227,8 +227,8 @@ namespace Ovenbird
                     else
                         //boundaryCondition = "Level_" + levelId + "::Zone_" + (HCF[adjCrvIdx] - renumberOffset).ToString() +
                         //    "::Wall_" + adjFace.IndexOf(adjCrvIdx).ToString();
-                        boundaryCondition = "Level_" + levelId + "::Zone_" + (HCF[adjCrvIdx]).ToString() +
-                            "::Wall_" + adjFace.IndexOf(adjCrvIdx).ToString();
+                        boundaryCondition = "zone" + (HCF[adjCrvIdx]).ToString() +
+                            "_wall" + adjFace.IndexOf(adjCrvIdx).ToString();
 
                     edgeLoop.Add(kvp.Value[j]);
                     infoLoop.Add(boundaryCondition);

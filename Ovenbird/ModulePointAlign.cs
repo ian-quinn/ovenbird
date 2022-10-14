@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 namespace Ovenbird
 {
+    /*
     public class ModulePointAlign : GH_Component
     {
         /// <summary>
@@ -146,4 +147,5 @@ namespace Ovenbird
         /// </summary>
         public override Guid ComponentGuid => new Guid("6BCE921A-B640-4795-AF49-80B6EFE5104E");
     }
+    */
 }

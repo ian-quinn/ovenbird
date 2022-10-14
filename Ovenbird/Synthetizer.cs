@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 namespace Ovenbird
 {
+    /*
     public class Synthetizer : GH_Component
     {
         /// <summary>
@@ -130,4 +131,5 @@ namespace Ovenbird
         /// </summary>
         public override Guid ComponentGuid => new Guid("AB568C8E-FD3C-4983-BE07-DCA3B7B0FF67");
     }
+    */
 }
