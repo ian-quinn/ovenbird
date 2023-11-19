@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using System.Globalization;
-using System.Text.RegularExpressions;
-
 using Rhino.Geometry;
+using Eto.Drawing;
 
 namespace Ovenbird
 {
@@ -181,6 +180,104 @@ namespace Ovenbird
             //        }
             //    }
             //}
+        }
+
+        public static void GetColBeam(string XMLpath,
+            out List<Brep> columns,
+            out List<Brep> beams)
+        //    Dictionary<string, string> adjDict)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(gbXML));
+            gbXML gbx;
+            using (Stream reader = new FileStream(XMLpath, FileMode.Open, FileAccess.Read))
+            {
+                gbx = (gbXML)serializer.Deserialize(reader);
+            }
+
+            columns = new List<Brep>();
+            beams = new List<Brep>();
+
+            // in case the XML not valid
+            if (gbx.Campus == null)
+                return;
+            if (gbx.Campus.Column == null)
+                return;
+            if (gbx.Campus.Beam == null)
+                return;
+
+            foreach (var col in gbx.Campus.Column)
+            {
+                if (col.PlanarGeometry == null)
+                    continue;
+                if (col.PlanarGeometry.PolyLoop == null)
+                    continue;
+
+                List<Point3d> colPts = new List<Point3d>();
+                foreach (var cpt in col.PlanarGeometry.PolyLoop.Points)
+                {
+                    Point3d pt = new Point3d(
+                        double.Parse(cpt.Coordinate[0]),
+                        double.Parse(cpt.Coordinate[1]),
+                        double.Parse(cpt.Coordinate[2]));
+                    colPts.Add(pt);
+                }
+                colPts.Add(colPts[0]);
+                PolylineCurve ply = new PolylineCurve(colPts);
+
+                LineCurve ax = new LineCurve(
+                    new Point3d(
+                        double.Parse(col.Axis.Points[0].Coordinate[0]),
+                        double.Parse(col.Axis.Points[0].Coordinate[1]),
+                        double.Parse(col.Axis.Points[0].Coordinate[2])),
+                    new Point3d(
+                        double.Parse(col.Axis.Points[1].Coordinate[0]),
+                        double.Parse(col.Axis.Points[1].Coordinate[1]),
+                        double.Parse(col.Axis.Points[1].Coordinate[2]))
+                    ); ;
+
+                SweepOneRail railSweep = new SweepOneRail();
+                var breps = railSweep.PerformSweep(ax, ply);
+
+                columns.AddRange(breps);
+            }
+
+            foreach (var beam in gbx.Campus.Beam)
+            {
+                if (beam.PlanarGeometry == null)
+                    continue;
+                if (beam.PlanarGeometry.PolyLoop == null)
+                    continue;
+                if (beam.Axis == null)
+                    continue;
+
+                List<Point3d> beamPts = new List<Point3d>();
+                foreach (var cpt in beam.PlanarGeometry.PolyLoop.Points)
+                {
+                    Point3d pt = new Point3d(
+                        double.Parse(cpt.Coordinate[0]),
+                        double.Parse(cpt.Coordinate[1]),
+                        double.Parse(cpt.Coordinate[2]));
+                    beamPts.Add(pt);
+                }
+                beamPts.Add(beamPts[0]);
+                PolylineCurve ply = new PolylineCurve(beamPts);
+
+                LineCurve ax = new LineCurve(
+                    new Point3d(
+                        double.Parse(beam.Axis.Points[0].Coordinate[0]),
+                        double.Parse(beam.Axis.Points[0].Coordinate[1]),
+                        double.Parse(beam.Axis.Points[0].Coordinate[2])),
+                    new Point3d(
+                        double.Parse(beam.Axis.Points[1].Coordinate[0]),
+                        double.Parse(beam.Axis.Points[1].Coordinate[1]),
+                        double.Parse(beam.Axis.Points[1].Coordinate[2]))
+                    );;
+
+                SweepOneRail railSweep = new SweepOneRail();
+                var breps = railSweep.PerformSweep(ax, ply);
+
+                beams.AddRange(breps);
+            }
         }
 
         #region geometric info translate

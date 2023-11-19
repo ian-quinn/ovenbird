@@ -953,9 +953,9 @@ namespace Ovenbird
     public class Location
     {
         public string Name { get; set; }
-        public string Latitude { get; set; }
-        public string Longitude { get; set; }
-        public string Elevation { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public double Elevation { get; set; }
         public double CADModelAzimuth { get; set; }
         public string ZipcodeOrPostalCode { get; set; }
 
@@ -1503,6 +1503,11 @@ namespace Ovenbird
         public string constructionIdRef { get; set; }
         [XmlAttribute]
         public string isShadowing { get; set; }
+
+        // 20230329 see XMLGeometry.cs Appendix for firewall
+        [XmlAttribute]
+        public bool isFirewall { get; set; }
+
         public string Name { get; set; }
         [XmlElement(IsNullable = false, ElementName = "AdjacentSpaceId")]
         public AdjacentSpaceId[] AdjacentSpaceId { get; set; }
@@ -1753,36 +1758,50 @@ namespace Ovenbird
         public Glaze[] Glaze { get; set; }
     }
 
+    /// custom definition -------------------------------------------------------
+
     [Serializable]
-    [XmlRootAttribute(ElementName = "gbXML", IsNullable = true, Namespace = "http://www.gbxml.org/schema")]
+    [XmlRootAttribute(ElementName = "gbXML", IsNullable = true)]
+    public class Axis
+    {
+        [XmlElement(IsNullable = false, ElementName = "CartesianPoint")]
+        public CartesianPoint[] Points { get; set; }
+    }
+
+    [Serializable]
+    [XmlRootAttribute(ElementName = "gbXML", IsNullable = true)]
     public class Column
     {
         [XmlAttribute]
         public string id { get; set; }
         [XmlAttribute]
+        public string name { get; set; }
+        [XmlAttribute]
         public int level { get; set; }
         [XmlElement]
         public PlanarGeometry PlanarGeometry { get; set; }
-        public string Width { get; set; }
-        public string Height { get; set; }
+        [XmlElement]
+        public Axis Axis { get; set; }
     }
 
     [Serializable]
-    [XmlRootAttribute(ElementName = "gbXML", IsNullable = true, Namespace = "http://www.gbxml.org/schema")]
+    [XmlRootAttribute(ElementName = "gbXML", IsNullable = true)]
     public class Beam
     {
         [XmlAttribute]
         public string id { get; set; }
         [XmlAttribute]
+        public string name { get; set; }
+        [XmlAttribute]
         public int level { get; set; }
         [XmlElement]
         public PlanarGeometry PlanarGeometry { get; set; }
-        public string Width { get; set; }
-        public string Height { get; set; }
+        [XmlElement]
+        public Axis Axis { get; set; }
     }
 
     [Serializable]
-    [XmlRootAttribute(ElementName = "gbXML", IsNullable = true, Namespace = "http://www.gbxml.org/schema")]
+    [XmlRootAttribute(ElementName = "gbXML", IsNullable = true)]
     public class Shaft
     {
         [XmlAttribute]

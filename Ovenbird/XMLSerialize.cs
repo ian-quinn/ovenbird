@@ -30,8 +30,8 @@ namespace Ovenbird
             //where does this location information from?  it could be smartly inferred somehow, but otherwise specified by the user/programmer
             Location zeloc = new Location();
             zeloc.Name = "???";
-            zeloc.Latitude = "00.00";
-            zeloc.Longitude = "00.00";
+            zeloc.Latitude = 0.00;
+            zeloc.Longitude = 0.00;
             cmp.Location = zeloc; // backward mapping
 
             // set an array as big as possible, revise here

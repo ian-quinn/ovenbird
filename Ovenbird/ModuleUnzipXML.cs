@@ -50,6 +50,8 @@ namespace Ovenbird
                 "All vertices loops of surfaces nested in each space", GH_ParamAccess.tree);
             pManager.AddPointParameter("Space Openings", "opening",
                 "All opening loops of each space", GH_ParamAccess.tree);
+            pManager.AddBrepParameter("Column", "column", "", GH_ParamAccess.list);
+            pManager.AddBrepParameter("Beam", "beam", "", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -83,6 +85,7 @@ namespace Ovenbird
             DataTree<Point3d> openingTree = new DataTree<Point3d>();
             XMLDeserialize.GetSpace(path, out List<string> ids, 
                 out List<List<List<Point3d>>> spaces, out List<List<List<Point3d>>> openings);
+            XMLDeserialize.GetColBeam(path, out List<Brep> columns, out List<Brep> beams);
             //Debug.Print($"Space members: {spaces.Count}");
             for (int i = 0; i < spaces.Count; i++)
             {
@@ -105,6 +108,8 @@ namespace Ovenbird
             DA.SetDataList(0, idList);
             DA.SetDataTree(1, spaceTree);
             DA.SetDataTree(2, openingTree);
+            DA.SetDataList(3, columns);
+            DA.SetDataList(4, beams);
         }
 
         /// <summary>
